@@ -27,7 +27,6 @@ for i in range(3) :
 
 # 첫번째 증가 옵션을 세공하는 버튼
 def bt1_click(event):
-        global Ran
         global Per
         global Up1
         global Cnt
@@ -59,8 +58,8 @@ def bt1_click(event):
         One = Label(win, text=Count[0]) # 얼마나 성공했는지 화면에 출력
         One.grid(row=2, column=11)
 
+# 두번째 증가 옵션을 세공하는 버튼
 def bt2_click(event):
-        global Ran
         global Per
         global Up2
         global Cnt
@@ -89,11 +88,11 @@ def bt2_click(event):
         Per_screen = Label(win, text=Per)       
         Per_screen.grid(row=1, column=11, columnspan=11)
         
-        One = Label(win, text=Count[1])
-        One.grid(row=3, column=11)
-
+        Two = Label(win, text=Count[1])
+        Two.grid(row=3, column=11)
+        
+# 감소 옵션을 세공하는 버튼
 def bt3_click(event):
-        global Ran
         global Per
         global Down
         global Cnt
@@ -122,8 +121,46 @@ def bt3_click(event):
         Per_screen = Label(win, text=Per)       
         Per_screen.grid(row=1, column=11, columnspan=11)
         
-        One = Label(win, text=Count[2])
-        One.grid(row=4, column=11)
+        Three = Label(win, text=Count[2])
+        Three.grid(row=4, column=11)
+
+# 리셋 버튼을 누르면 모든 변수 초기화 및 초기 화면 출력
+def reset(event) :
+        global Per
+        global Up1
+        global Up2
+        global Down
+        global Cnt
+        
+        Per = 75
+        Up1 = 0
+        Up2 = 0
+        Down = 0
+        Cnt = 0
+
+        for i in range(3) :
+                for j in range(10) :
+                        Stone[i][j] = '□'
+                        
+        for i in range(3) :
+                Count[i] = 0
+
+        for i in range(3) :
+                for j in range(10) :
+                        stoneUI = Label(win, text=Stone[i][j])
+                        stoneUI.grid(row=i+2, column=j)
+
+        Per_screen = Label(win, text=Per)
+        Per_screen.grid(row=1, column=11, columnspan=11)
+        
+        One = Label(win, text=Count[0])
+        One.grid(row=2, column=11)
+
+        Two = Label(win, text=Count[1])
+        Two.grid(row=3, column=11)
+
+        Three = Label(win, text=Count[2])
+        Three.grid(row=4, column=11)
         
 win = Tk()
 
@@ -136,10 +173,6 @@ Per_screen = Label(win, text=Per)
 Per_mark = Label(win, text="%")
 Per_screen.grid(row=1, column=11, columnspan=11)
 Per_mark.grid(row=1, column=12)
-
-# 밑에 여백을 화면에 출력
-Foot = Label(win, text="".center(34, '　'))
-Foot.grid(row=5, column=0, columnspan=12)
 
 # 첫번째 증가 옵션의 성공 횟수와 '+'기호를 화면에 출력
 One_mark = Label(win, text='+')
@@ -173,6 +206,15 @@ Three_mark.grid(row=4, column=9, columnspan=9)
 Three.grid(row=4, column=11)
 Bt3.grid(row=4, column=12)
 Bt3.bind("<Button-1>", bt3_click)
+
+# 밑에 여백을 화면에 출력
+Foot = Label(win, text="Made By MococoPlay".center(43, '　'))
+Foot.grid(row=5, column=0, columnspan=12)
+
+# 리셋 버튼을 화면에 출력
+Reset_bt = Button(win, text="리셋")
+Reset_bt.grid(row=5, column=12)
+Reset_bt.bind("<Button-1>", reset)
 
 # 초기 돌의 세공 정보를 화면에 출력
 for i in range(3) :
